@@ -17,6 +17,9 @@
 			<div class="pillar">
 				
 			</div>
+			<div class="pillar">
+				
+			</div>
 		</div>
 	</body>
 </html>

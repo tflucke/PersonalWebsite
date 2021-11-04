@@ -1,0 +1,298 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"
+            crossorigin="anonymous"></script>
+    <script src="js/resume.js"></script>
+    <script type="text/javascript">
+      angular.module('resume', [])
+      .filter('orderDate', function() {
+          return function(items) {
+              var list = items.slice();
+              var numPresent = 0;
+              for (var i = 1; i < list.length; i++) {
+                  var tmp = list[i];
+                  if (tmp.date && tmp.date.end == "Present") {
+                      numPresent++;
+                      list.splice(i, 1);
+                      list.unshift(tmp);
+                      i = Math.max(i - 1, numPresent);
+                  }
+              }
+              return list;
+          };
+      }).controller('MyController', ['$scope', function($scope) {
+          for (var key in resume) {
+              $scope[key] = resume[key];
+          }
+          
+          $scope.fitPages = function(maxPageCount) {
+              var fn = function() {
+                  var maxPx = document.getElementById("heightRef").offsetHeight;
+                  if (document.documentElement.scrollHeight <= maxPx*maxPageCount) {
+                      return;
+                  }
+                  var lowestInterest = {interest: 1};
+                  for (var key in resume) {
+                      if ($scope[key].constructor.name === "Array") {
+                          for (var i = 0; i < $scope[key].length; i++) {
+                              if ($scope[key][i].interest != undefined &&
+                                  $scope[key][i].hide !== true &&
+                                  $scope[key][i].interest <= lowestInterest.interest) {
+                                  lowestInterest = $scope[key][i];
+                              }
+                          }
+                      }
+                  }
+                  if (lowestInterest.interest == 1) {
+                      throw "Too many unmarked accomplishments!";
+                  }
+                  else {
+                      lowestInterest.hide = true;
+                      $scope.$apply();
+                      setTimeout(fn, 0);
+                  }
+              }
+              setTimeout(fn, 0);
+          }
+      }]);
+    </script>
+    <title>Thomas Flucke</title>
+    <style type="text/css">
+      * {
+        --page-margin: 0.5in;
+        --page-width:  8.5in;
+        --page-height: 11in;
+      }
+
+      /* Printer Settings */
+      @page {
+          margin: 0.3in;
+      }
+    
+      body {
+          width: calc( var(--page-width) - 2*var(--page-margin) );
+          height: calc( var(--page-height) - 2*var(--page-margin) );
+          font-family: georgia, "Times New Roman", serif;
+          font-size: 10pt;
+      }
+
+      h1 {
+          font-size: 1.9em;
+          font-variant: small-caps;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: .2em;
+      }
+
+      h2 {
+          font-variant: small-caps;
+          margin-top: 9pt;
+          margin-bottom: 0pt;
+      }
+
+      h3 {
+          font-size: 1.1em;
+          display: inline-block;
+          margin-top: 5pt;
+          margin-bottom: 1pt;
+      }
+      
+      .right {
+          text-align: right;
+          vertical-align: bottom;
+          padding-bottom: 2pt;
+      }
+
+      .position {
+          //font-size: 0.9em;
+          font-style: italic;
+      }
+      
+      .date {
+          font-style: italic;
+      }
+
+      table {
+          border-collapse: collapse;
+          font-size: 1em;
+          width: 100%;
+      }
+
+      ul {
+          margin: 0;
+          margin-left: -1em;
+          list-style-type: square;
+          display: inline-block;
+      }
+
+      article {
+          page-break-inside: avoid;
+      }
+
+      article > div {
+          margin-left: 1em;
+      }
+
+      td.title {
+          border-bottom: outset #000000 2px;
+      }
+
+      td.sidebar {
+          vertical-align: top;
+          border-right: outset #000000 2px;
+          padding-right: 0.5em;
+      }
+
+      td.sidebar > h3 {
+          display: block;
+      }
+
+      td.main {
+          padding-left: 0.75em;
+      }
+      
+      .contact {
+          text-align: center;
+          font-style: italic;
+          font-size: .95em;
+      }
+      
+      .contact td {
+          width: 33%;
+      }
+      
+      .contact span::after {
+          content: "\A";
+          white-space: pre;
+      }
+
+      th {
+          text-align: left;
+      }
+      
+      table.grid {
+          margin-left: 1.25em;
+      }
+      
+      table.grid tr:first-child {
+          border-top-width: 0px;
+      }
+      
+      table.grid tr {
+          border-top: solid #000000 1px;
+      }
+    </style>
+  </head>
+  <body data-ng-app="resume" data-ng-controller="MyController" data-ng-init="fitPages(1);">
+    <div id="heightRef" style="height: calc( var(--page-height) - 2*var(--page-margin) + 16px ); visibility: hidden; position: absolute; z-index: -1;"></div>
+    <table>
+      <tr>
+        <td class="title" colspan="2">
+          <h1>{{ name() }}</h1>
+          <table class="contact">
+            <tr>
+              <td>{{contact.email}}</td>
+              <td rowspan="2" style="vertical-align: middle;">
+                <span>{{ contact.address.slice(0, (contact.address.length + 1) / 2).join(separator) }}</span>
+                <span>{{ contact.address.slice((contact.address.length + 1) / 2, contact.address.length).join(separator) }}</span>
+              </td>
+              <td>{{contact.url}}</td>
+            </tr>
+            <tr>
+              <td>{{contact.phone}}</td>
+              <td>{{contact.git}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="sidebar">
+          <h3>Languages</h3>
+          <ul>
+            <li data-ng-repeat="skill in skills.languages">{{skill.name}}</li>
+          </ul>
+          <hr />
+          <h3>Tools</h3>
+          <ul>
+            <li data-ng-repeat="tool in skills.tools">{{tool.name}}</li>
+          </ul>
+          <hr />
+          <h3>Interests</h3>
+          <ul>
+            <li data-ng-repeat="club in clubs">{{club.shortname}}</li>
+          </ul>
+          <hr />
+          <h3>Relevant Classes</h3>
+          <ul>
+            <li>Intro to Security</li>
+            <li>Network Security</li>
+            <li>Intro to Networks</li>
+            <li>Grad. Comp. Arch.</li>
+            <li>Grad. S.E.</li>
+            <li>Applied Parallel</li>
+            <li>Distributed Computing</li>
+            <li>Intro to Robotics</li>
+          </ul>
+        </td>
+        <td class="main">
+          <h2>Work</h2>
+          <div data-ng-repeat="job in jobs | orderDate" data-ng-hide="job.hide === true">
+            <table>
+              <tr>
+                <td>
+                  <h3>{{job.company}}</h3>
+                  <span class="position">&mdash; {{job.title}}</span>
+                </td>
+                <td class="right">
+                  <span class="date">{{job.date.start}} &mdash; {{job.date.end}}</span>
+                </td>
+              </tr>
+            </table>
+            <ul>
+              <li data-ng-repeat="point in job.description">{{point}}</li>
+            </ul>
+          </div>
+          <h2>Projects</h2>
+          <div data-ng-repeat="project in projects | orderDate" data-ng-hide="project.hide === true">
+            <table>
+              <tr>
+                <td>
+                  <h3>{{project.name}}</h3>
+                </td>
+                <td class="right" data-ng-show="project.date">
+                  <span class="date">{{project.date.start}} &mdash; {{project.date.end}}</span>
+                </td>
+              </tr>
+            </table>
+            <ul>
+              <li data-ng-repeat="point in project.description">{{point}}</li>
+            </ul>
+          </div>
+          <h2>Education</h2>
+          <div data-ng-repeat="school in education">
+            <table>
+              <tr>
+                <td>
+                  <h3>{{school.name}}</h3>
+                </td>
+                <td class="right">
+                  <span class="date">{{school.date.start}} &mdash; {{school.date.end}}</span>
+                </td>
+              </tr>
+            </table>
+            <ul>
+              <li>
+                {{school.level}} of {{school.subject}} &#9642; Focus in {{school.concentration}}
+              </li>
+            </ul>
+            <span style="float: right; padding-left: 1em;">Dean's List x{{school.honors["Dean's List"]}}</span>
+            <span style="float: right; padding-left: 1em;">President's List x{{school.honors["President's List"]}}</span>
+            <!--<span style="float: right; padding-left: 1em;">GPA: {{school.gpa}}</span>-->
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

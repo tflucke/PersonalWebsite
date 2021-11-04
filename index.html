@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Thomas Flucke's personal website." />
+        <meta name="author" content="Thomas Flucke" />
+        <title>Thomas Flucke - Software Engineer</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"
+                crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular-sanitize.js"
+                crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+                crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+              rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+              rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.14.0/devicon.min.css" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="js/resume.js"></script>
+        <script type="text/javascript">
+          angular.module('home', ['ngSanitize']).filter('orderDate', function() {
+              return function(items) {
+                  var list = items.slice();
+                  var numPresent = 0;
+                  for (var i = 1; i < list.length; i++) {
+                      var tmp = list[i];
+                      if (tmp.date && tmp.date.end == "Present") {
+                          numPresent++;
+                          list.splice(i, 1);
+                          list.unshift(tmp);
+                          i = Math.max(i - 1, numPresent);
+                      }
+                  }
+                  return list;
+              };
+          }).controller('MyController', ['$scope', function($scope) {
+              for (var key in resume) {
+                  $scope[key] = resume[key];
+              }
+          }]);
+        </script>
+        <style type="text/css">
+        ul {
+          list-style-type: square;
+        }
+        </style>
+    </head>
+    <body id="page-top" class="bg-dark" data-ng-app="home" data-ng-controller="MyController">
+        <!-- Navigation-->
+        <nav class="navbar navbar-dark navbar-expand-lg navbar-dark bg-primary fixed-top"
+             id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">{{ name() }}</span>
+                <span class="d-none d-lg-block">
+                  <img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                       src="assets/img/profile.jpg" alt="..." />
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#education">Education</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#interests">Interests</a>
+                  </li>
+                  <!--
+                  <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
+                  </li>
+                  -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="resume.html">Resume</a>
+                  </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        {{ fname }}
+                        <span class="text-primary">{{ lname }}</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        {{ contact.address.join(separator) }} {{ separator }} {{contact.phone}} {{ separator }}
+                        <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                    </div>
+                    </p>
+                    <p class="lead mb-5">
+                      Hello,<br />
+                      I am a Software Engineer by trade, focusing on security and embedded systems.
+                      When I'm not working, I like hiking, practicing martial arts, and playing tabletop games.<br />
+                      This is a little server I host for myself for personal tools and utilities and also just to
+                      play around with new programming environments.
+                    </p>
+                    <div class="social-icons">
+                        <a class="social-icon" href="{{contact.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" href="{{contact.github}}"><i class="fab fa-github"></i></a>
+                        <a class="social-icon" href="{{contact.git}}"><i class="devicon-git-plain"></i></a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Experience-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Experience</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5"
+                         data-ng-repeat="job in jobs | orderDate">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">{{job.longTitle || job.title}}</h3>
+                            <div class="subheading mb-3">{{job.company}}</div>
+                            <ul class="mb-0">
+                              <li data-ng-repeat="point in job.description">{{point}}</li>
+                            </ul>
+                        </div>
+                        <div class="flex-shrink-0 text-end" >
+                          <div class="text-primary">{{job.date.start}} &mdash; {{job.date.end}}</div>
+                          <a data-ng-if="job.url" href="{{job.url}}">{{job.url}}</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Education-->
+            <section class="resume-section" id="education">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Education</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5"
+                         data-ng-repeat="school in education | orderDate">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">{{school.longName || school.name}}</h3>
+                            <div class="subheading mb-3">{{school.longLevel || school.level}}</div>
+                            <div>{{school.subject}} &mdash; {{school.concentration}}</div>
+                            <p>GPA: {{school.gpa}}</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                          <span class="text-primary">{{school.date.start}} &mdash; {{school.date.end}}</span>
+                            <div class="subheading mb-3" style="color: rgba(0, 0, 0, 0);">clear</div>
+                          <div class="align-bottom" data-ng-repeat="(honor, count) in school.honors">
+                            {{honor}}: {{count}}
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Skills-->
+            <section class="resume-section" id="skills">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Skills</h2>
+                    <div class="subheading mb-3">Programming Languages & Tools</div>
+                    <ul class="list-inline dev-icons">
+                        <li class="list-inline-item" data-ng-repeat="lang in skills.languages">
+                          <i class="{{lang.icon}}"></i>
+                        </li>
+                        <li class="list-inline-item" data-ng-repeat="framework in skills.frameworks">
+                          <i class="{{framework.icon}}"></i>
+                        </li>
+                        <!--
+                        <li class="list-inline-item" data-ng-repeat="tool in skills.tools">
+                          <i class="{{tool.icon}}"></i>
+                        </li>
+                        -->
+                        <li class="list-inline-item" data-ng-repeat="server in skills.servers">
+                          <i class="{{server.icon}}"></i>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="projects">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Projects</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5"
+                         data-ng-repeat="project in projects" data-ng-if="project.paragraph">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">{{project.name}}</h3>
+                            <p class="mb-0" data-ng-bind-html="project.paragraph.join('  ')"></p>
+                        </div>
+                        <div class="flex-shrink-0">
+                          <a href="{{project.url}}">{{project.url}}</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Interests-->
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+                  <h2 class="mb-5">Interests</h2>
+                  <div class="d-flex flex-column flex-md-row justify-content-between mb-5"
+                       data-ng-repeat="club in clubs">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">{{club.name}}</h3>
+                            <p class="mb-0" data-ng-bind-html="club.paragraph.join('  ')"></p>
+                        </div>
+                        <div class="flex-shrink-0">
+                          <a data-ng-if="club.url" href="{{project.url}}">{{club.url}}</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Awards-->
+            <!--
+            <section class="resume-section" id="awards">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Awards & Certifications</h2>
+                    <ul class="fa-ul mb-0">
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            Google Analytics Certified Developer
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            Mobile Web Specialist - Google Certification
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            1
+                            <sup>st</sup>
+                            Place - University of Colorado Boulder - Emerging Tech Competition 2009
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            1
+                            <sup>st</sup>
+                            Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            2
+                            <sup>nd</sup>
+                            Place - University of Colorado Boulder - Emerging Tech Competition 2008
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            1
+                            <sup>st</sup>
+                            Place - James Buchanan High School - Hackathon 2006
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            3
+                            <sup>rd</sup>
+                            Place - James Buchanan High School - Hackathon 2005
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            -->
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

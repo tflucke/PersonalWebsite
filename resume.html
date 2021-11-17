@@ -23,10 +23,47 @@
               return list;
           };
       }).controller('MyController', ['$scope', function($scope) {
-          for (var key in resume) {
-              $scope[key] = resume[key];
+          function QueryStringToJSON() {            
+              var pairs = location.search.slice(1).split('&');              
+              var result = {};
+              pairs.forEach(function(pair) {
+                  pair = pair.split('=');
+                  if (pair[0] != "" && pair[0] != "null")
+                      result[pair[0]] = decodeURIComponent(pair[1] || 0);
+              });              
+              return JSON.parse(JSON.stringify(result));
+          }
+
+          var interestMultipliers = QueryStringToJSON();
+
+          function multiplyInterest(obj) {
+              var factor = 0;
+              if (typeof obj === "string") {
+                  for (var key in interestMultipliers) {
+                      factor += (obj.match(new RegExp(key, "gi")) || []).length * interestMultipliers[key];
+                  }
+              }
+              else if (Array.isArray(obj)) {
+                  for (var i = 0; i < obj.length; i++) {
+                      factor += multiplyInterest(obj[i]);
+                  }
+              }
+              else if (typeof obj === "object") {
+                  for (var key in obj) {
+                      factor += multiplyInterest(obj[key]);
+                  }
+                  if (obj.hasOwnProperty("interest")) {
+                      obj.interest *= factor + 1;
+                  }
+              }
+              return factor;
           }
           
+          for (var key in resume) {
+              multiplyInterest(resume[key]);
+              $scope[key] = resume[key];
+          }
+
           $scope.fitPages = function(maxPageCount) {
               var fn = function() {
                   var maxPx = document.getElementById("heightRef").offsetHeight;
@@ -37,7 +74,7 @@
                   for (var key in resume) {
                       if ($scope[key].constructor.name === "Array") {
                           for (var i = 0; i < $scope[key].length; i++) {
-                              if ($scope[key][i].interest != undefined &&
+                              if ($scope[key][i].hasOwnProperty("interest") &&
                                   $scope[key][i].hide !== true &&
                                   $scope[key][i].interest <= lowestInterest.interest) {
                                   lowestInterest = $scope[key][i];
@@ -186,7 +223,7 @@
     </style>
   </head>
   <body data-ng-app="resume" data-ng-controller="MyController" data-ng-init="fitPages(1);">
-    <div id="heightRef" style="height: calc( var(--page-height) - 2*var(--page-margin) + 16px ); visibility: hidden; position: absolute; z-index: -1;"></div>
+    <div id="heightRef" style="height: calc( var(--page-height) - 2*var(--page-margin) + 30px ); visibility: hidden; position: absolute; z-index: -1;"></div>
     <table>
       <tr>
         <td class="title" colspan="2">
@@ -255,7 +292,8 @@
             </ul>
           </div>
           <h2>Projects</h2>
-          <div data-ng-repeat="project in projects | orderDate" data-ng-hide="project.hide === true">
+          <div data-ng-repeat="project in projects | orderDate" data-ng-hide="project.hide === true"
+               data-ng-if="project.description">
             <table>
               <tr>
                 <td>

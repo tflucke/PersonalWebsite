@@ -49,12 +49,12 @@ const resume = {
                 end: "Present"
             },
             description: [
-                "Augmented ARM/ARM64 compiler to produce more secure embedded software",
+                "Augmented ARM/ARM64 C compiler to produce more secure embedded software",
                 "Augmented ARM/ARM64 simulator with features matching hardware specification",
                 "Crafted tests to verify compiler, assembler, and simulator correctness and detect bugs",
                 "Researched security protocols and developed requirement documents"
             ],
-            interest: 0.3
+            interest: 1.3
         },
         {
             company: "Microcon Inc.",
@@ -67,9 +67,9 @@ const resume = {
             description: [
                 "Created an API translation interface using object-orient design principles",
                 "Set up source control server and instructed current version control techniques",
-                "Upgraded legacy code base to imrpove web page usability using jQuery, VBS, and ASP"
+                "Upgraded legacy code base to improve web page usability using jQuery, VBS, and ASP"
             ],
-            interest: 0.2
+            interest: 1.2
         },
         {
             company: "Cal Poly San Luis Obispo",
@@ -83,10 +83,9 @@ const resume = {
             description: [
                 "Developed automated grading script to detect errors and assign grades with Junit tests",
                 "Explained C and Unix systems concepts to students and assisted with debugging",
-                "Graded exams and gave feedback on why solutions may be problematic/degenerate",
-                "Reviewed security quizes for possibly correct answers that are not currently handled"
+                "Graded exams and evaluated solutions for degenerate behavior or successful exploitation"
             ],
-            interest: 0.1
+            interest: 1.1
         },
         {
             company: "Green Hills Software",
@@ -99,7 +98,7 @@ const resume = {
                 "Created applications to run in a security critical IoT device",
                 "Designed system to record and reproduce problematic behavior"
             ],
-            interest: 0.2
+            interest: 1.2
         },
         {
             company: "Green Hills Software",
@@ -110,9 +109,9 @@ const resume = {
             },
             description: [
                 "Found and patched bugs in microcontroller management management systems",
-                "Documented and anylized the debug process to formulate a debugging curriculum"
+                "Documented and analyzed the debug process to formulate a debugging curriculum"
             ],
-            interest: 0.08
+            interest: 1.08
         },
         {
             company: "Qnet Security",
@@ -126,7 +125,7 @@ const resume = {
                 "Developed network sniffer to capture and display cleartext/encrypted packets",
                 "Designed and wrote testing framework for system testing hardware network devices"
             ],
-            interest: 0.15
+            interest: 1.15
         },
         {
             company: "Mentor eData",
@@ -140,7 +139,7 @@ const resume = {
                 "Maintained and updated existing code bases that were in active use",
                 "Used business analytics tools to aid the development and optimization of algorithms"
             ],
-            interest: 0.2
+            interest: 1.2
         },
         {
             company: "Livermore Labs",
@@ -152,9 +151,10 @@ const resume = {
             },
             description: [
                 "Developed Angular front-end and Java Play API back-ends to manage financial data",
+                "Use Java Hibernate and MVC design to interface with an Oracle SQL database",
                 "Discussed design and interfaces with non-technical users in an agile office"
             ],
-            interest: 0.2
+            interest: 1.2
         }
     ],
     skills: {
@@ -242,6 +242,12 @@ const resume = {
             {
                 name: "Bootstrap",
                 icon: "devicon-bootstrap-plain"
+            },
+            {
+                name: "JUnit"
+            },
+            {
+                name: "Java Hibernate"
             }
         ],
         editors: [
@@ -345,13 +351,26 @@ const resume = {
             name: "Thesis: Identification of Users via SSH Timing Attack",
             url: "https://digitalcommons.calpoly.edu/theses/2208/",
             paragraph: [
-                "I recorded the SSH sessions of student volunteers and tested several machine learning algorithms to see if I could identify the traffic based solely on the timing of the keystrokes.",
+                "I recorded the SSH sessions of student volunteers using virtual machines and tested several machine learning algorithms to see if I could identify the traffic based solely on the timing of the keystrokes.",
             ],
             description: [
                 "Developed virtual machine environment to observe participant network activities",
                 "Designed machine learning algorithms to identify users using encrypted ssh activity"
             ],
             interest: 0.4
+        },
+        {
+            name: "Vietnamese Listening Practice",
+            url: "tone.tflucke.name",
+            paragraph: [
+                "While I was practicing Vietnamese for a year, I noticed that I wasn't picking up a particular skill: hearing inflections.  Since Vietnamese is a tonal language, the inflections change the meanings of words, but often the words were different enough that I could treat them as homonyms (much the same way I would never confuse \"meet\" with \"meat\").  This got me through lessens, but I felt frustrated that I wasn't learning this skill.  So I created this game which removes all contextual clues for what the word is, forcing me to practice hearing the inflection.",
+            ],
+            description: [
+                "Designed a game to isolate and test for a particular skill",
+                "Created a scala framework to convert Scala.js RPC calls into Scala PLAY! REST APIs",
+                "Designed unit tests to verify web interface basic functionality using Selenium"
+            ],
+            interest: 0.1
         },
         {
             name: "Neuroprosthetics Research Paper",
@@ -378,7 +397,7 @@ const resume = {
                 "Developed alternate program to control robot with bluetooth signals or testing purposes",
                 "Assembled circuit to run ATMega-328P microprocessor independently of third-party boards"
             ],
-            interest: 0.07
+            interest: 0.007
         },
         {
             name: "Simple Artificial Neural Network",
@@ -514,7 +533,7 @@ const resume = {
             name: "Tabletop Games",
             shortname: "Board Games",
             date: {
-                start: "August 2014",
+                start: "August 2010",
                 end: "Present"
             },
             paragraph: [
@@ -527,6 +546,21 @@ const resume = {
             description: [
                 "Competed in social challenges of strategy and critical thinking",
                 "Worked in cooperative groups to achieve common goal"
+            ],
+            interest: 0.15
+        },
+        {
+            name: "Lingistics",
+            shortname: "Lingistics",
+            date: {
+                start: "August 2010",
+                end: "Present"
+            },
+            paragraph: [
+                "I've long had a bit of an interest in linguistics and language structure.",
+                "It probably started back in high school when I took Latin, mostly because I felt I needed a second language for college and I like Greco-Roman mythology.",
+                "I eventually ended up practicing (and becoming vaguely conversation) with Vietnamese and now put more of a focus on Spanish.",
+                "I'm not great at any of these languages since I don't practice very often.  I just find the structure interesting."
             ],
             interest: 0.15
         }

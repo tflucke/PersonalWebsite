@@ -65,6 +65,8 @@
           }
 
           $scope.fitPages = function(maxPageCount) {
+              if ('no-truncate' in interestMultipliers) return;
+              
               var fn = function() {
                   var maxPx = document.getElementById("heightRef").offsetHeight;
                   if (document.documentElement.scrollHeight <= maxPx*maxPageCount) {

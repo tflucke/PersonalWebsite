@@ -41,12 +41,26 @@ const resume = {
     ],
     jobs: [
         {
+            company: "Boeing",
+            title: "Software Engineer Level 4",
+            url: "https://www.boeing.com/",
+            date: {
+                start: "February 2022",
+                end: "Present"
+            },
+            description: [
+                "Ported large code base to be compatible with newest Red Hat Kernel and GNU compiler",
+                "Inspected and renewed unmaintained regression tests"
+            ],
+            interest: 1.1
+        },
+        {
             company: "Green Hills Software",
             title: "Software Engineer",
             url: "https://dawnproject.com/",
             date: {
                 start: "April 2020",
-                end: "Present"
+                end: "February 2022"
             },
             description: [
                 "Augmented ARM/ARM64 C compiler to produce more secure embedded software",
@@ -348,10 +362,37 @@ const resume = {
     },
     projects: [
         {
+            name: "Budget App",
+            //url: "https://budget.tflucke.name",
+            paragraph: [
+                "I pay very close attention to my finances and make detailed plans for my budget.  Despite having a budget app to keep track of my expenses, I found myself supplementing it with many spreadsheets and a few custom utility programs.  I eventually realized that I would be better off writing my own budget app that combined all of these features together; and so I did.",
+                "I carefully designed a model to be a coherent digital representation of how I thought about my money and finances to make sure that the data in the application exactly matched how I think about my income and expenses without over-complicating the algorithms which have to manipulate the data.",
+                "Although this is still a work-in-progress, it already out preforms my previous application with quality-of-life features that I use almost daily like stateless budget analysis and event duplication."
+            ],
+            description: [
+                "Architected a budget model that exactly reflected my needs with consideration for algorithm complexity",
+                "Created an intuitive Scala.js web interface using Functional Reactive Programming",
+                "Built a robust RESTful API to abstract SQL database implementation"
+            ],
+            interest: 0.5
+        },
+        {
+            name: "T-Snapshot",
+            url: "https://github.com/tflucke/tsnapshot",
+            paragraph: [
+                "Disappointed that my backup program (rsnapshot) lacked certain capabilities that I would want for some of my systems, I decided to create my own implementation and familiarize myself with the latest systems-programming crazy: Rust.  Tsnapshot is another backup program that allows for the creation of regular backups using a flexible configuration file, including the option to compress the backups, balance space and redundancy, and determine all of this using a recursive config file that allows for per-directory configuration."
+            ],
+            description: [
+                "Created and tested a Rust application to create space-efficient backups on schedule",
+                "Designed recursively defined, human-readable configuration file"
+            ],
+            interest: 0.4
+        },
+        {
             name: "Thesis: Identification of Users via SSH Timing Attack",
             url: "https://digitalcommons.calpoly.edu/theses/2208/",
             paragraph: [
-                "I recorded the SSH sessions of student volunteers using virtual machines and tested several machine learning algorithms to see if I could identify the traffic based solely on the timing of the keystrokes.",
+                "I recorded the SSH sessions of student volunteers using virtual machines and tested several machine learning algorithms to see if I could identify the traffic based solely on the timing of the keystrokes."
             ],
             description: [
                 "Developed virtual machine environment to observe participant network activities",

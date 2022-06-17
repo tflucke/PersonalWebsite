@@ -12,9 +12,9 @@ const resume = {
         git: "https://git.tflucke.name/tflucke",
         email: "tflucke@tflucke.name",
         address: [
-            "111 W. Junipero St.",
-            "APT #F",
-            "Santa Barbara, CA 93105"
+            "415 W. Jefferson Ave.",
+            "Unit 401",
+            "Kirkwood, MO 63122"
         ],
         linkedin: "https://www.linkedin.com/in/tomflucke/",
         github: "https://github.com/tflucke"
